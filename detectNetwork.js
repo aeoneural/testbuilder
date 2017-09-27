@@ -17,28 +17,50 @@ var detectNetwork = function(cardNumber) {
   // var validatePrefix = cardNumber.substring(0,1);
 
   if (len === 15 && (validatePrefix('34') || validatePrefix('37'))){ return 'American Express'}
-  if (len === 14 && (validatePrefix('38')|| validatePrefix('39'))){ return 'Diner\'s Club' }
-  if ((len === 13 || len === 16 || len === 19) && ( validatePrefix('4'))){ return 'Visa'}
-  if (len === 16 && (validatePrefix('51') || validatePrefix('52') || validatePrefix('53') || validatePrefix('54') || validatePrefix('55'))){ return 'MasterCard'}
-  if (len === 16 || len === 19 && (validatePrefix('6011') || validatePrefix('644') || validatePrefix('645')
+  else if (len === 14 && (validatePrefix('38')|| validatePrefix('39'))){ return 'Diner\'s Club' }
+  else if ((len === 13 || len === 16 || len === 19) && ( validatePrefix('4'))){ return 'Visa'}
+  else if (len === 16 && (validatePrefix('51') || validatePrefix('52') || validatePrefix('53') || validatePrefix('54') || validatePrefix('55'))){ return 'MasterCard'}
+  else if ((len === 16 || len === 19) && (validatePrefix('6011') || validatePrefix('644') || validatePrefix('645')
       || validatePrefix('646') || validatePrefix('647') || validatePrefix('648') || validatePrefix('649') || validatePrefix('65') )){
       return 'Discover'}
-  if((len > 11 && len < 19) && validatePrefix('5018') || validatePrefix('5020') || validatePrefix('5038') || validatePrefix('6304') ){
+  else if((len >=12 && len <= 19) && (validatePrefix('5018') || validatePrefix('5020') || validatePrefix('5038') || validatePrefix('6304')) ){
       return 'Maestro'}
+      // 622126 - 622925
+  else if((len >= 16 && len <= 19) && (validatePrefix('622' + validateNext(126, 925))) || validatePrefix((validateNext(624, 626))) || validatePrefix((validateNext((6282, 6288)))) ){
+      return "China UnionPay"
+  }
+  else if((len === 16 || len === 18 || len === 19) && (validatePrefix('4903') || validatePrefix('4905') || validatePrefix('4911') || validatePrefix('4936') || validatePrefix('564182') || validatePrefix('633110')
+          || validatePrefix('6333') || validatePrefix('6759') ) ){
+      return 'Switch'
+  }
+
 };
 
-// console.log(detectNetwork('3934567890123'))
-// console.log(detectNetwork('38345678901234'))
-// console.log(detectNetwork('38345678901234'))
-// console.log(detectNetwork('39345678901234'))
-// console.log(detectNetwork('373456789012345'))
-// console.log(detectNetwork('343456789012345'))
-// console.log(detectNetwork('4123456789012'))
-// console.log(detectNetwork('4123456789012345'))
-// console.log(detectNetwork('4123456789012345678'))
-// console.log(detectNetwork('5112345678901234'))
-// console.log(detectNetwork('5212345678901234'))
-// console.log(detectNetwork('5312345678901234'))
-// console.log(detectNetwork('5412345678901234'))
-// console.log(detectNetwork('5512345678901234'))
+function validateNext(low, high){
+    var res = ''
+    for(var i = low; i <= low; i++){
+        res += i
+    }
+    return res
+}
+console.log(detectNetwork('3934567890123 '))
+console.log(detectNetwork('38345678901234'))
+console.log(detectNetwork('3834567890123 '))
+console.log(detectNetwork('39345678901234'))
+console.log(detectNetwork('373456789012345'))
+console.log(detectNetwork('343456789012345'))
+console.log(detectNetwork('4123456789012'))
+console.log(detectNetwork('4123456789012345'))
+console.log(detectNetwork('4123456789012345678'))
+console.log(detectNetwork('5112345678901234'))
+console.log(detectNetwork('5212345678901234'))
+console.log(detectNetwork('5312345678901234'))
+console.log(detectNetwork('5412345678901234'))
+console.log(detectNetwork('5512345678901234'))
 console.log(detectNetwork('6011111111111111111'))
+
+for(var i = 644; i <= 649; i++){
+    console.log(detectNetwork( 644 + '1111111111111'))
+    console.log(detectNetwork( 644 + '1111111111111111'))
+};
+
